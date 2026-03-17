@@ -1,32 +1,110 @@
-[![Build Status](https://runbot.odoo.com/runbot/badge/flat/1/master.svg)](https://runbot.odoo.com/runbot)
-[![Tech Doc](https://img.shields.io/badge/master-docs-875A7B.svg?style=flat&colorA=8F8F8F)](https://www.odoo.com/documentation/16.0)
-[![Help](https://img.shields.io/badge/master-help-875A7B.svg?style=flat&colorA=8F8F8F)](https://www.odoo.com/forum/help-1)
-[![Nightly Builds](https://img.shields.io/badge/master-nightly-875A7B.svg?style=flat&colorA=8F8F8F)](https://nightly.odoo.com/)
+# Execute given commands one by one to install Odoo
 
-Odoo
-----
+### Fetch the updates:
+```bash
+sudo apt-get update
+```
 
-Odoo is a suite of web based open source business apps.
+### Run the following commands to install the main dependencies:
+```bash
+sudo apt install openssh-server fail2ban python3-pip python3-dev libxml2-dev libxslt1-dev zlib1g-dev libsasl2-dev libldap2-dev build-essential libssl-dev libffi-dev libmysqlclient-dev libpq-dev libjpeg8-dev liblcms2-dev libblas-dev libatlas-base-dev git curl python3-venv python3.10-venv fontconfig libxrender1 xfonts-75dpi xfonts-base -y
+```
 
-The main Odoo Apps include an <a href="https://www.odoo.com/page/crm">Open Source CRM</a>,
-<a href="https://www.odoo.com/app/website">Website Builder</a>,
-<a href="https://www.odoo.com/app/ecommerce">eCommerce</a>,
-<a href="https://www.odoo.com/app/inventory">Warehouse Management</a>,
-<a href="https://www.odoo.com/app/project">Project Management</a>,
-<a href="https://www.odoo.com/app/accounting">Billing &amp; Accounting</a>,
-<a href="https://www.odoo.com/app/point-of-sale-shop">Point of Sale</a>,
-<a href="https://www.odoo.com/app/employees">Human Resources</a>,
-<a href="https://www.odoo.com/app/social-marketing">Marketing</a>,
-<a href="https://www.odoo.com/app/manufacturing">Manufacturing</a>,
-<a href="https://www.odoo.com/">...</a>
+### Download and install wkhtmltopdf:
 
-Odoo Apps can be used as stand-alone applications, but they also integrate seamlessly so you get
-a full-featured <a href="https://www.odoo.com">Open Source ERP</a> when you install several Apps.
+```bash
+wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_amd64.deb
+```
 
-Getting started with Odoo
--------------------------
+```bash
+sudo dpkg -i wkhtmltox_0.12.6.1-2.jammy_amd64.deb
+```
 
-For a standard installation please follow the <a href="https://www.odoo.com/documentation/16.0/administration/install/install.html">Setup instructions</a>
-from the documentation.
+If you find errors in previous command, force install the dependencies with given command.
 
-To learn the software, we recommend the <a href="https://www.odoo.com/slides">Odoo eLearning</a>, or <a href="https://www.odoo.com/page/scale-up-business-game">Scale-up</a>, the <a href="https://www.odoo.com/page/scale-up-business-game">business game</a>. Developers can start with <a href="https://www.odoo.com/documentation/16.0/developer/howtos.html">the developer tutorials</a>
+```bash
+sudo apt-get install -f
+```
+
+### Now, install and configure PostgreSQL database:
+```bash
+sudo apt install postgresql -y
+```
+
+```bash
+sudo -i -u postgres createuser -s  $(whoami)
+```
+
+```bash
+sudo su postgres
+```
+
+```bash
+psql
+```
+
+```bash
+alter user $(whoami) with password 'your_password';
+```
+
+
+```bash
+\q
+```
+
+```bash
+exit
+```
+
+### Configure git:
+
+```bash
+git config --global user.name "Your Name"
+```
+
+```bash
+git config --global user.email youremail@example.com
+```
+
+### Clone the Odoo code base:
+
+```bash
+mkdir ~/odoo-dev
+```
+
+```bash
+cd ~/odoo-dev
+```
+
+```bash
+git clone -b 16.0 --single-branch --depth 1 https://github.com/odoo/odoo.git
+```
+
+### Create an venv-oodoo-16.0 virtual environment and activate it:
+```bash
+python3 -m venv ~/venv-odoo-16.0
+```
+
+```bash
+source ~/venv-odoo-16.0/bin/activate
+```
+
+### Install the Python dependencies of Odoo in venv:
+
+```bash
+cd ~/odoo-dev/odoo/
+```
+
+```bash
+pip3 install -r requirements.txt
+```
+
+### Create and start your first Odoo instances:
+
+```bash
+createdb odoo-test
+```
+
+```bash
+python3 odoo-bin -d odoo-test –i base --addons-path=addons --db-filter=odoo-test$
+```
