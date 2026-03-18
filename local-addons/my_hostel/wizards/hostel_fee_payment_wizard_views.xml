@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hostel_fee_payment_wizard" model="ir.ui.view">
+        <field name="name">hostel.fee.payment.wizard.form</field>
+        <field name="model">hostel.fee.payment.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="fee_id" invisible="1"/>
+                            <field name="amount"/>
+                            <field name="payment_date"/>
+                        </group>
+                        <group>
+                            <field name="payment_method"/>
+                            <field name="reference"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="notes" widget="textarea"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_register_payment" string="Register Payment" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hostel_fee_payment_wizard" model="ir.actions.act_window">
+        <field name="name">Register Payment</field>
+        <field name="res_model">hostel.fee.payment.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_fee_id': active_id}</field>
+    </record>
+</odoo>

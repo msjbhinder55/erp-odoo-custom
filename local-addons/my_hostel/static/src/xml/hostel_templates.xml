@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="hostel_dashboard">
+        <div class="hostel_dashboard">
+            <div class="stat-grid">
+                <div class="dashboard-card">
+                    <div class="card-title">Total Hostels</div>
+                    <div class="card-value" t-esc="hostel_count or 0"/>
+                </div>
+                <div class="dashboard-card">
+                    <div class="card-title">Total Rooms</div>
+                    <div class="card-value" t-esc="room_count or 0"/>
+                </div>
+                <div class="dashboard-card">
+                    <div class="card-title">Occupied Rooms</div>
+                    <div class="card-value" t-esc="occupied_rooms or 0"/>
+                </div>
+                <div class="dashboard-card">
+                    <div class="card-title">Total Students</div>
+                    <div class="card-value" t-esc="student_count or 0"/>
+                </div>
+            </div>
+            <div class="hostel-stats"/>
+        </div>
+    </t>
+</templates>

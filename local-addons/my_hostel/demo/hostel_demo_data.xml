@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Demo Hostels -->
+        <record id="demo_hostel_1" model="hostel.hostel">
+            <field name="name">Main Hostel</field>
+            <field name="code">MH</field>
+            <field name="address">123 University Avenue, Campus</field>
+            <field name="phone">1234567890</field>
+            <field name="email">main.hostel@university.edu</field>
+        </record>
+
+        <record id="demo_hostel_2" model="hostel.hostel">
+            <field name="name">Annex Hostel</field>
+            <field name="code">AH</field>
+            <field name="address">456 College Road, Campus</field>
+            <field name="phone">1234567891</field>
+            <field name="email">annex.hostel@university.edu</field>
+        </record>
+
+        <!-- Demo Rooms -->
+        <record id="demo_room_101" model="hostel.room">
+            <field name="hostel_id" ref="demo_hostel_1"/>
+            <field name="room_number">101</field>
+            <field name="floor">1</field>
+            <field name="capacity">2</field>
+            <field name="room_type">double</field>
+            <field name="price_per_bed">500</field>
+        </record>
+
+        <record id="demo_room_102" model="hostel.room">
+            <field name="hostel_id" ref="demo_hostel_1"/>
+            <field name="room_number">102</field>
+            <field name="floor">1</field>
+            <field name="capacity">2</field>
+            <field name="room_type">double</field>
+            <field name="price_per_bed">500</field>
+        </record>
+
+        <record id="demo_room_201" model="hostel.room">
+            <field name="hostel_id" ref="demo_hostel_1"/>
+            <field name="room_number">201</field>
+            <field name="floor">2</field>
+            <field name="capacity">3</field>
+            <field name="room_type">triple</field>
+            <field name="price_per_bed">450</field>
+        </record>
+
+        <!-- Demo Students -->
+        <record id="demo_student_1" model="hostel.student">
+            <field name="name">John Doe</field>
+            <field name="student_id">STU2024001</field>
+            <field name="gender">male</field>
+            <field name="phone">9876543210</field>
+            <field name="email">john.doe@student.edu</field>
+            <field name="course">Computer Science</field>
+            <field name="year_of_study">2</field>
+        </record>
+
+        <record id="demo_student_2" model="hostel.student">
+            <field name="name">Jane Smith</field>
+            <field name="student_id">STU2024002</field>
+            <field name="gender">female</field>
+            <field name="phone">9876543211</field>
+            <field name="email">jane.smith@student.edu</field>
+            <field name="course">Business Administration</field>
+            <field name="year_of_study">1</field>
+        </record>
+
+        <!-- Demo Allocations -->
+        <record id="demo_allocation_1" model="hostel.allocation">
+            <field name="student_id" ref="demo_student_1"/>
+            <field name="room_id" ref="demo_room_101"/>
+            <field name="bed_number">1</field>
+            <field name="start_date" eval="(datetime.now() - timedelta(days=30)).strftime('%Y-%m-%d')"/>
+            <field name="state">active</field>
+        </record>
+
+        <record id="demo_allocation_2" model="hostel.allocation">
+            <field name="student_id" ref="demo_student_2"/>
+            <field name="room_id" ref="demo_room_102"/>
+            <field name="bed_number">1</field>
+            <field name="start_date" eval="(datetime.now() - timedelta(days=15)).strftime('%Y-%m-%d')"/>
+            <field name="state">active</field>
+        </record>
+
+        <!-- Demo Fees -->
+        <record id="demo_fee_1" model="hostel.fee">
+            <field name="name">Rent - Jan 2024</field>
+            <field name="student_id" ref="demo_student_1"/>
+            <field name="allocation_id" ref="demo_allocation_1"/>
+            <field name="fee_type">rent</field>
+            <field name="amount">500</field>
+            <field name="paid_amount">500</field>
+            <field name="due_date" eval="(datetime.now() - timedelta(days=5)).strftime('%Y-%m-%d')"/>
+            <field name="state">paid</field>
+        </record>
+
+        <record id="demo_fee_2" model="hostel.fee">
+            <field name="name">Rent - Feb 2024</field>
+            <field name="student_id" ref="demo_student_1"/>
+            <field name="allocation_id" ref="demo_allocation_1"/>
+            <field name="fee_type">rent</field>
+            <field name="amount">500</field>
+            <field name="due_date" eval="(datetime.now() + timedelta(days=20)).strftime('%Y-%m-%d')"/>
+            <field name="state">confirmed</field>
+        </record>
+    </data>
+</odoo>

@@ -49,3 +49,30 @@ package.json
 /man/
 /share/
 /src/
+
+# Python
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+
+# Odoo
+*.log
+*.sqlite
+filestore/
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Database
+*.db
+*.sql
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
+*.pid
+*.sock

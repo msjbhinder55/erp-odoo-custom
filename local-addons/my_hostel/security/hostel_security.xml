@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Categories -->
+        <record id="module_category_hostel_management" model="ir.module.category">
+            <field name="name">Hostel Management</field>
+            <field name="description">Hostel Management</field>
+            <field name="sequence">10</field>
+        </record>
+
+        <!-- Groups -->
+        <record id="group_hostel_user" model="res.groups">
+            <field name="name">User</field>
+            <field name="category_id" ref="module_category_hostel_management"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="group_hostel_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="module_category_hostel_management"/>
+            <field name="implied_ids" eval="[(4, ref('group_hostel_user'))]"/>
+        </record>
+
+        <record id="group_hostel_administrator" model="res.groups">
+            <field name="name">Administrator</field>
+            <field name="category_id" ref="module_category_hostel_management"/>
+            <field name="implied_ids" eval="[(4, ref('group_hostel_manager'))]"/>
+        </record>
+
+        <!-- Record Rules -->
+        <record id="hostel_hostel_company_rule" model="ir.rule">
+            <field name="name">Hostel: Multi-Company</field>
+            <field name="model_id" ref="model_hostel_hostel"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="hostel_room_company_rule" model="ir.rule">
+            <field name="name">Room: Multi-Company</field>
+            <field name="model_id" ref="model_hostel_room"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">[('hostel_id.company_id', 'in', company_ids)]</field>
+        </record>
+    </data>
+</odoo>

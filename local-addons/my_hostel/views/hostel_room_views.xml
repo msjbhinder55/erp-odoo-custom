@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree View -->
+    <record id="view_hostel_room_tree" model="ir.ui.view">
+        <field name="name">hostel.room.tree</field>
+        <field name="model">hostel.room</field>
+        <field name="arch" type="xml">
+            <tree decoration-success="state=='available'" decoration-warning="state=='occupied'" decoration-danger="state=='maintenance'">
+                <field name="hostel_id"/>
+                <field name="room_number"/>
+                <field name="floor"/>
+                <field name="room_type"/>
+                <field name="capacity"/>
+                <field name="current_occupancy"/>
+                <field name="available_beds"/>
+                <field name="price_per_bed" widget="monetary"/>
+                <field name="state"/>
+                <field name="active" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_hostel_room_form" model="ir.ui.view">
+        <field name="name">hostel.room.form</field>
+        <field name="model">hostel.room</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="active" invisible="1"/>
+                    <button name="toggle_active" type="object" 
+                            attrs="{'invisible': [('active', '=', False)]}" 
+                            string="Archive" class="btn-secondary"/>
+                    <button name="toggle_active" type="object" 
+                            attrs="{'invisible': [('active', '=', True)]}" 
+                            string="Unarchive" class="btn-secondary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="available,occupied,maintenance"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="display_name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="hostel_id"/>
+                            <field name="room_number"/>
+                            <field name="floor"/>
+                            <field name="room_type"/>
+                            <field name="capacity"/>
+                        </group>
+                        <group>
+                            <field name="current_occupancy"/>
+                            <field name="available_beds"/>
+                            <field name="price_per_bed" widget="monetary"/>
+                            <field name="state"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="facilities" widget="html"/>
+                    </group>
+                    <notebook>
+                        <page string="Allocations">
+                            <field name="allocation_ids" mode="tree,form">
+                                <tree>
+                                    <field name="student_id"/>
+                                    <field name="bed_number"/>
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Description">
+                            <field name="description" widget="html"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_hostel_room_search" model="ir.ui.view">
+        <field name="name">hostel.room.search</field>
+        <field name="model">hostel.room</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="room_number"/>
+                <field name="hostel_id"/>
+                <filter name="filter_available" string="Available" domain="[('state', '=', 'available')]"/>
+                <filter name="filter_occupied" string="Occupied" domain="[('state', '=', 'occupied')]"/>
+                <filter name="filter_maintenance" string="Maintenance" domain="[('state', '=', 'maintenance')]"/>
+                <separator/>
+                <filter name="group_by_hostel" string="Hostel" context="{'group_by': 'hostel_id'}"/>
+                <filter name="group_by_floor" string="Floor" context="{'group_by': 'floor'}"/>
+                <filter name="group_by_type" string="Room Type" context="{'group_by': 'room_type'}"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_hostel_room" model="ir.actions.act_window">
+        <field name="name">Rooms</field>
+        <field name="res_model">hostel.room</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first room!
+            </p>
+            <p>
+                Rooms are the individual units within a hostel where students will stay.
+                Each room has a capacity and can be allocated to students.
+            </p>
+        </field>
+    </record>
+</odoo>

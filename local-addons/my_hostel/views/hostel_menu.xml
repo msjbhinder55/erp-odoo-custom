@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Main Menu -->
+    <menuitem id="menu_hostel_root" name="Hostel" sequence="10"/>
+    
+    <!-- Hostel Management Menu -->
+    <menuitem id="menu_hostel_management" name="Hostel Management" parent="menu_hostel_root" sequence="10"/>
+    
+    <!-- Submenus -->
+    <menuitem id="menu_hostel_hostel" name="Hostels" parent="menu_hostel_management" 
+              action="my_hostel.action_hostel_hostel" sequence="10"/>
+    <menuitem id="menu_hostel_room" name="Rooms" parent="menu_hostel_management" 
+              action="my_hostel.action_hostel_room" sequence="20"/>
+    
+    <!-- Student Management Menu -->
+    <menuitem id="menu_hostel_student_management" name="Student Management" parent="menu_hostel_root" sequence="20"/>
+    <menuitem id="menu_hostel_student" name="Students" parent="menu_hostel_student_management" 
+              action="my_hostel.action_hostel_student" sequence="10"/>
+    <menuitem id="menu_hostel_allocation" name="Allocations" parent="menu_hostel_student_management" 
+              action="my_hostel.action_hostel_allocation" sequence="20"/>
+    
+    <!-- Services & Fees Menu -->
+    <menuitem id="menu_hostel_services" name="Services &amp; Fees" parent="menu_hostel_root" sequence="30"/>
+    <menuitem id="menu_hostel_service" name="Services" parent="menu_hostel_services" 
+              action="my_hostel.action_hostel_service" sequence="10"/>
+    <menuitem id="menu_hostel_fee" name="Fees" parent="menu_hostel_services" 
+              action="my_hostel.action_hostel_fee" sequence="20"/>
+    
+    <!-- Reports Menu -->
+    <menuitem id="menu_hostel_reports" name="Reports" parent="menu_hostel_root" sequence="40"/>
+    <menuitem id="menu_hostel_occupancy_report" name="Occupancy Report" parent="menu_hostel_reports" 
+              action="my_hostel.action_hostel_occupancy_report" sequence="10"/>
+    <menuitem id="menu_hostel_fee_report" name="Fee Report" parent="menu_hostel_reports" 
+              action="my_hostel.action_hostel_fee_report" sequence="20"/>
+</odoo>

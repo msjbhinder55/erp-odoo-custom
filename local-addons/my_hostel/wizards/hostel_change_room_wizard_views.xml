@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hostel_change_room_wizard" model="ir.ui.view">
+        <field name="name">hostel.change.room.wizard.form</field>
+        <field name="model">hostel.change.room.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="allocation_id" invisible="1"/>
+                            <field name="student_id" readonly="1"/>
+                            <field name="current_room_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="new_room_id" options="{'no_create': True}"/>
+                            <field name="new_bed_number"/>
+                            <field name="change_date"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="reason" widget="textarea" placeholder="Reason for room change..."/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_change_room" string="Change Room" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hostel_change_room_wizard" model="ir.actions.act_window">
+        <field name="name">Change Room</field>
+        <field name="res_model">hostel.change.room.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_allocation_id': active_id}</field>
+    </record>
+</odoo>

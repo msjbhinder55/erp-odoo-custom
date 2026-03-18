@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Occupancy Report Action -->
+    <record id="action_hostel_occupancy_report" model="ir.actions.act_window">
+        <field name="name">Occupancy Report</field>
+        <field name="res_model">hostel.room</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="my_hostel.view_hostel_room_tree"/>
+        <field name="domain">[]</field>
+        <field name="context">{'group_by': 'state'}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                View room occupancy statistics.
+            </p>
+            <p>
+                This report shows the current occupancy status of all rooms.
+            </p>
+        </field>
+    </record>
+
+    <!-- Fee Report Action -->
+    <record id="action_hostel_fee_report" model="ir.actions.act_window">
+        <field name="name">Fee Report</field>
+        <field name="res_model">hostel.fee</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="my_hostel.view_hostel_fee_tree"/>
+        <field name="domain">[]</field>
+        <field name="context">{'search_default_filter_confirmed': 1, 'group_by': 'state'}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                View fee collection reports.
+            </p>
+            <p>
+                This report shows all fees and their payment status.
+            </p>
+        </field>
+    </record>
+
+    <!-- Alternative: If you want to use a custom report view -->
+    <record id="view_hostel_occupancy_report_tree" model="ir.ui.view">
+        <field name="name">hostel.occupancy.report.tree</field>
+        <field name="model">hostel.room</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="hostel_id"/>
+                <field name="room_number"/>
+                <field name="capacity"/>
+                <field name="current_occupancy"/>
+                <field name="available_beds"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Alternative occupancy report using a different view -->
+    <record id="action_hostel_occupancy_report_alt" model="ir.actions.act_window">
+        <field name="name">Occupancy Report</field>
+        <field name="res_model">hostel.room</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="my_hostel.view_hostel_occupancy_report_tree"/>
+        <field name="domain">[]</field>
+    </record>
+</odoo>

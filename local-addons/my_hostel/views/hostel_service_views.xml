@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree View -->
+    <record id="view_hostel_service_tree" model="ir.ui.view">
+        <field name="name">hostel.service.tree</field>
+        <field name="model">hostel.service</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="service_type"/>
+                <field name="price" widget="monetary"/>
+                <field name="price_type"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_hostel_service_form" model="ir.ui.view">
+        <field name="name">hostel.service.form</field>
+        <field name="model">hostel.service</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Service Name..."/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="service_type"/>
+                            <field name="price" widget="monetary"/>
+                            <field name="price_type"/>
+                        </group>
+                        <group>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="description" widget="html"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_hostel_service" model="ir.actions.act_window">
+        <field name="name">Services</field>
+        <field name="res_model">hostel.service</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add your first service!
+            </p>
+            <p>
+                Services are additional offerings that can be provided to students,
+                such as food, laundry, or WiFi.
+            </p>
+        </field>
+    </record>
+</odoo>
